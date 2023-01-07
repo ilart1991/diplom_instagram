@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:instagram_skillbox/domain/providers/registered_provider.dart';
+import 'package:localization/localization.dart';
 
 import '../../domain/firebase_func.dart';
 
@@ -32,8 +33,9 @@ class LoginRegForm extends ConsumerWidget {
                   enableSuggestions: false,
                   autocorrect: false,
                   controller: passwordController,
-                  decoration: const InputDecoration(
-                      hintText: "Пароль", labelText: "Пароль"),
+                  decoration: InputDecoration(
+                      hintText: "password".i18n(),
+                      labelText: "password".i18n()),
                 ),
                 MaterialButton(
                   textColor: Colors.white,
@@ -51,7 +53,8 @@ class LoginRegForm extends ConsumerWidget {
                         : ref.read(registeredProvider.notifier).isReg();
                   },
                   minWidth: 150,
-                  child: Text(isRegistered as bool ? "Войти" : "Регистрация"),
+                  child: Text(
+                      isRegistered as bool ? "enter".i18n() : "reg".i18n()),
                 ),
               ],
             ),
@@ -59,16 +62,15 @@ class LoginRegForm extends ConsumerWidget {
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(isRegistered
-                  ? "Еще не зарегистрированы?"
-                  : "Уже зарегистрированы?"),
+              Text(
+                  isRegistered ? "reg_question".i18n() : "log_question".i18n()),
               TextButton(
                   onPressed: () {
                     isRegistered
                         ? ref.read(registeredProvider.notifier).notReg()
                         : ref.read(registeredProvider.notifier).isReg();
                   },
-                  child: Text(isRegistered ? "Регистрация" : "Войти"))
+                  child: Text(isRegistered ? "reg".i18n() : "enter".i18n()))
             ],
           )
         ],

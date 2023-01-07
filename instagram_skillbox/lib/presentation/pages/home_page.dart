@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:instagram_skillbox/domain/providers/add_photo_provider.dart';
 import 'package:instagram_skillbox/domain/providers/pages_provider.dart';
 import 'package:instagram_skillbox/domain/providers/title_provider.dart';
+import 'package:localization/localization.dart';
 import '/domain/firebase_func.dart';
 import '/presentation/pages/gallery_page.dart';
 
@@ -12,8 +13,10 @@ class HomePage extends ConsumerWidget {
   HomePage({super.key});
 
   final List<BottomNavigationBarItem> bottomNavBarItems = [
-    const BottomNavigationBarItem(icon: Icon(Icons.grid_on), label: "Галерея"),
-    const BottomNavigationBarItem(icon: Icon(Icons.person), label: "Профиль"),
+    BottomNavigationBarItem(
+        icon: const Icon(Icons.grid_on), label: "gallery".i18n()),
+    BottomNavigationBarItem(
+        icon: const Icon(Icons.person), label: "profile".i18n()),
   ];
 
   @override

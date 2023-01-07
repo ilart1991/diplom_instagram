@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:localization/localization.dart';
 
 import '../pages/gallery_page.dart';
 import '../pages/login_page.dart';
@@ -24,9 +25,7 @@ class ProfileTopSpace extends StatelessWidget {
     return StreamBuilder<QuerySnapshot>(
         stream: _usersStream,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          if (snapshot.hasError) {
-            return const Center(child: Text('Неизвестная ошибка'));
-          }
+          if (snapshot.hasError) {}
 
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
@@ -80,9 +79,9 @@ class ProfileTopSpace extends StatelessWidget {
                         children: [
                           TextField(
                             controller: nameController,
-                            decoration: const InputDecoration(
-                                labelText: "Имя пользователя",
-                                hintText: "Имя пользователя"),
+                            decoration: InputDecoration(
+                                labelText: "user_name".i18n(),
+                                hintText: "user_name".i18n()),
                           ),
                           MaterialButton(
                             minWidth: 240,
@@ -96,7 +95,7 @@ class ProfileTopSpace extends StatelessWidget {
                             },
                             color: Colors.blue,
                             textColor: Colors.white,
-                            child: const Text("Сохранить"),
+                            child: Text("save".i18n()),
                           )
                         ],
                       ))
@@ -106,7 +105,7 @@ class ProfileTopSpace extends StatelessWidget {
                 color: Colors.red.shade300,
                 minWidth: 420,
                 textColor: Colors.white,
-                child: const Text("Выйти из аккаунта"),
+                child: Text("log_out".i18n()),
                 onPressed: () => Navigator.pushNamedAndRemoveUntil(
                     context, "/login", (route) => false),
               )

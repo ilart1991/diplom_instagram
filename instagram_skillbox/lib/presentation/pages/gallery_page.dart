@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:localization/localization.dart';
 import '/presentation/pages/details_page.dart';
 import '/presentation/pages/login_page.dart';
 
@@ -19,9 +20,7 @@ class GalleryPage extends StatelessWidget {
     return StreamBuilder<QuerySnapshot>(
       stream: _usersStream,
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-        if (snapshot.hasError) {
-          return const Text('Неизвестная ошибка');
-        }
+        if (snapshot.hasError) {}
 
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(
@@ -96,7 +95,7 @@ class GalleryPage extends StatelessWidget {
                                           : Colors.grey),
                                 ),
                                 Text(
-                                  "Нравится: ${data["likes"].length}",
+                                  "${"like".i18n()}: ${data["likes"].length}",
                                   maxLines: 1,
                                 )
                               ],

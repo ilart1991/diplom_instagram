@@ -8,6 +8,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:localization/localization.dart';
 
 import '../presentation/pages/gallery_page.dart';
 import '../presentation/pages/login_page.dart';
@@ -85,13 +86,13 @@ void addPhoto(BuildContext context) async {
                 Image.file(file),
                 TextField(
                   controller: descController,
-                  decoration: const InputDecoration(
-                      hintText: "Описание", labelText: "Описание"),
+                  decoration: InputDecoration(
+                      hintText: "desc".i18n(), labelText: "desc".i18n()),
                 ),
                 MaterialButton(
                   color: Colors.green,
                   textColor: Colors.white,
-                  child: const Text("Загрузить"),
+                  child: Text("upload".i18n()),
                   onPressed: () async {
                     photoRef
                         .putFile(file)

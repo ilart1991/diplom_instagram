@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:localization/localization.dart';
 
 import '../../domain/providers/details_provider.dart';
 import 'gallery_page.dart';
@@ -27,7 +28,7 @@ class DetailsPage extends ConsumerWidget {
     final likesArray = ref.watch(detailsProvider);
     return Scaffold(
         appBar: AppBar(
-          title: const Text("Подробнее"),
+          title: Text("more".i18n()),
           centerTitle: true,
         ),
         body: Column(
@@ -69,7 +70,7 @@ class DetailsPage extends ConsumerWidget {
                           ? Colors.red
                           : Colors.grey),
                 ),
-                Text("Нравится: ${likesArray.length}")
+                Text("${"like".i18n()}: ${likesArray.length}")
               ],
             ),
             Padding(
@@ -81,9 +82,9 @@ class DetailsPage extends ConsumerWidget {
             Padding(
               padding: const EdgeInsets.only(left: 14, top: 12),
               child: likesArray.isNotEmpty
-                  ? const Text(
-                      "Нравится пользователям",
-                      style: TextStyle(fontSize: 24),
+                  ? Text(
+                      "like_users".i18n(),
+                      style: const TextStyle(fontSize: 24),
                     )
                   : null,
             ),

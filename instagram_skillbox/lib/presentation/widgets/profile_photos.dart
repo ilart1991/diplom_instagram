@@ -19,9 +19,7 @@ class ProfilePhotos extends StatelessWidget {
     return StreamBuilder<QuerySnapshot>(
       stream: _usersStream,
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-        if (snapshot.hasError) {
-          return const Center(child: Text('Неизвестная ошибка'));
-        }
+        if (snapshot.hasError) {}
 
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(
