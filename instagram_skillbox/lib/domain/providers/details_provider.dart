@@ -1,8 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:instagram_skillbox/presentation/pages/login_page.dart';
 
-class DetailsProvider extends StateNotifier<List> {
-  DetailsProvider() : super(const []);
+class Details extends StateNotifier<List> {
+  Details() : super(const []);
 
   void setData(List likes) {
     state = likes;
@@ -19,6 +19,6 @@ class DetailsProvider extends StateNotifier<List> {
   }
 }
 
-final listProvider = StateNotifierProvider<DetailsProvider, List>((ref) {
-  return DetailsProvider();
+final detailsProvider = StateNotifierProvider<Details, List>((ref) {
+  return Details();
 });

@@ -23,8 +23,8 @@ class DetailsPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     WidgetsBinding.instance.addPostFrameCallback(
-        (_) => ref.read(listProvider.notifier).setData(likes));
-    final likesArray = ref.watch(listProvider);
+        (_) => ref.read(detailsProvider.notifier).setData(likes));
+    final likesArray = ref.watch(detailsProvider);
     return Scaffold(
         appBar: AppBar(
           title: const Text("Подробнее"),
@@ -53,13 +53,13 @@ class DetailsPage extends ConsumerWidget {
                       await currentPhotoRef.update({
                         "likes": FieldValue.arrayUnion([userEmail]),
                       });
-                      ref.read(listProvider.notifier).addItem();
+                      ref.read(detailsProvider.notifier).addItem();
                       // setState(() {});
                     } else {
                       await currentPhotoRef.update({
                         "likes": FieldValue.arrayRemove([userEmail]),
                       });
-                      ref.read(listProvider.notifier).removeItem();
+                      ref.read(detailsProvider.notifier).removeItem();
                       // setState(() {});
                       return;
                     }
