@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:instagram_skillbox/presentation/pages/home_page.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'presentation/pages/home_page.dart';
 
 import 'presentation/pages/login_page.dart';
 
@@ -8,7 +9,7 @@ import 'firebase_options.dart';
 import 'presentation/pages/profile_page.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const ProviderScope(child: MyApp()));
   initFirebase();
 }
 

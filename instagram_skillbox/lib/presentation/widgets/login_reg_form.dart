@@ -1,21 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:instagram_skillbox/domain/providers/registered_provider.dart';
 
 import '../../domain/firebase_func.dart';
-
-class LoginRegForm extends StatefulWidget {
-  const LoginRegForm({super.key});
-
-  @override
-  State<LoginRegForm> createState() => _LoginRegFormState();
-}
 
 TextEditingController loginController = TextEditingController();
 TextEditingController passwordController = TextEditingController();
 
-class _LoginRegFormState extends State<LoginRegForm> {
-  bool isRegistered = true;
+class LoginRegForm extends ConsumerWidget {
+  const LoginRegForm({super.key});
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final isRegistered = ref.watch(registeredProvider);
     return Center(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -43,12 +40,12 @@ class _LoginRegFormState extends State<LoginRegForm> {
                   color: Colors.blue,
                   onPressed: () {
                     isRegistered ? login(context) : registration();
-                    setState(() {
-                      isRegistered = true;
-                    });
+                    isRegistered
+                        ? ref.read(registeredProvider.notifier).notReg()
+                        : ref.read(registeredProvider.notifier).isReg();
                   },
                   minWidth: 150,
-                  child: Text(isRegistered ? "Войти" : "Регистрация"),
+                  child: Text(isRegistered as bool ? "Войти" : "Регистрация"),
                 ),
               ],
             ),
@@ -60,13 +57,11 @@ class _LoginRegFormState extends State<LoginRegForm> {
                   ? "Еще не зарегистрированы?"
                   : "Уже зарегистрированы?"),
               TextButton(
-                  onPressed: () => setState(() {
-                        if (isRegistered) {
-                          isRegistered = false;
-                        } else {
-                          isRegistered = true;
-                        }
-                      }),
+                  onPressed: () {
+                    isRegistered
+                        ? ref.read(registeredProvider.notifier).notReg()
+                        : ref.read(registeredProvider.notifier).isReg();
+                  },
                   child: Text(isRegistered ? "Регистрация" : "Войти"))
             ],
           )

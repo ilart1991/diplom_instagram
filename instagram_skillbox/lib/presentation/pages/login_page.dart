@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:instagram_skillbox/presentation/widgets/login_reg_form.dart';
+import '/presentation/widgets/login_reg_form.dart';
 
 String userEmail = "";
 

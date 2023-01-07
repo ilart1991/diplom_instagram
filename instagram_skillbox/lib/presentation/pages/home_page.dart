@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:instagram_skillbox/domain/firebase_func.dart';
-import 'package:instagram_skillbox/presentation/pages/gallery_page.dart';
+import '/domain/firebase_func.dart';
+import '/presentation/pages/gallery_page.dart';
 
-import 'package:instagram_skillbox/presentation/pages/profile_page.dart';
+import '/presentation/pages/profile_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

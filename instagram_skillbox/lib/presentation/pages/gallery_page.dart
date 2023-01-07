@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:instagram_skillbox/presentation/pages/details_page.dart';
-import 'package:instagram_skillbox/presentation/pages/login_page.dart';
+import '/presentation/pages/details_page.dart';
+import '/presentation/pages/login_page.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 

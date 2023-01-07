@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:instagram_skillbox/presentation/widgets/profile_top_space.dart';
-import 'package:instagram_skillbox/presentation/widgets/profile_photos.dart';
+import "/presentation/widgets/profile_top_space.dart";
+import '/presentation/widgets/profile_photos.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
