@@ -36,7 +36,7 @@ class _HomePageState extends State<HomePage> {
                   icon: const Icon(Icons.add)))
         ],
       ),
-      body: bottomIndex == 0 ? const GalleryPage() : const ProfilePage(),
+      body: bottomIndex == 0 ? GalleryPage() : const ProfilePage(),
       bottomNavigationBar: BottomNavigationBar(
           currentIndex: bottomIndex,
           onTap: (value) => setState(() {

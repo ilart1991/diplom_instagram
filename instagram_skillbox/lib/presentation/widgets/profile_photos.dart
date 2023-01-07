@@ -5,14 +5,9 @@ import '../pages/details_page.dart';
 import '../pages/gallery_page.dart';
 import '../pages/login_page.dart';
 
-class ProfilePhotos extends StatefulWidget {
-  const ProfilePhotos({super.key});
+class ProfilePhotos extends StatelessWidget {
+  ProfilePhotos({super.key});
 
-  @override
-  State<ProfilePhotos> createState() => _ProfilePhotosState();
-}
-
-class _ProfilePhotosState extends State<ProfilePhotos> {
   final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance
       .collection('photos')
       .orderBy("date", descending: true)

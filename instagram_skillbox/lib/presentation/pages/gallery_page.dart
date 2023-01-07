@@ -6,14 +6,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 var db = FirebaseFirestore.instance;
 
-class GalleryPage extends StatefulWidget {
-  const GalleryPage({super.key});
+class GalleryPage extends StatelessWidget {
+  GalleryPage({super.key});
 
-  @override
-  State<GalleryPage> createState() => _GalleryPageState();
-}
-
-class _GalleryPageState extends State<GalleryPage> {
   final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance
       .collection('photos')
       .orderBy("date", descending: true)
