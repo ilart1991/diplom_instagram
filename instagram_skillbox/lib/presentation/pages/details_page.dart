@@ -1,10 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../domain/providers/details_provider.dart';
 import 'gallery_page.dart';
 import 'login_page.dart';
 
-class DetailsPage extends StatefulWidget {
+class DetailsPage extends ConsumerWidget {
   const DetailsPage(
       {super.key,
       required this.uuid,
@@ -19,13 +21,10 @@ class DetailsPage extends StatefulWidget {
   final List likes;
 
   @override
-  State<DetailsPage> createState() => _DetailsPageState();
-}
-
-class _DetailsPageState extends State<DetailsPage> {
-  @override
-  Widget build(BuildContext context) {
-    List likes = widget.likes;
+  Widget build(BuildContext context, ref) {
+    WidgetsBinding.instance.addPostFrameCallback(
+        (_) => ref.read(listProvider.notifier).setData(likes));
+    final _likes = ref.watch(listProvider);
     return Scaffold(
         appBar: AppBar(
           title: const Text("Подробнее"),
@@ -36,9 +35,9 @@ class _DetailsPageState extends State<DetailsPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Hero(
-              tag: widget.uuid,
+              tag: uuid,
               child: Image.network(
-                widget.url,
+                url,
                 height: 200,
                 width: 460,
                 fit: BoxFit.fitWidth,
@@ -48,40 +47,40 @@ class _DetailsPageState extends State<DetailsPage> {
               children: [
                 IconButton(
                   onPressed: () async {
-                    debugPrint(widget.docId);
-                    final currentPhotoRef =
-                        db.collection("photos").doc(widget.docId);
-                    if (!widget.likes.contains(userEmail)) {
+                    debugPrint(docId);
+                    final currentPhotoRef = db.collection("photos").doc(docId);
+                    if (!_likes.contains(userEmail)) {
                       await currentPhotoRef.update({
                         "likes": FieldValue.arrayUnion([userEmail]),
                       });
-                      likes.add(userEmail);
-                      setState(() {});
+                      ref.read(listProvider.notifier).addItem();
+                      // setState(() {});
                     } else {
                       await currentPhotoRef.update({
                         "likes": FieldValue.arrayRemove([userEmail]),
                       });
-                      likes.remove(userEmail);
-                      setState(() {});
+                      ref.read(listProvider.notifier).removeItem();
+                      // setState(() {});
                       return;
                     }
                   },
                   icon: Icon(Icons.favorite,
-                      color:
-                          likes.contains(userEmail) ? Colors.red : Colors.grey),
+                      color: _likes.contains(userEmail)
+                          ? Colors.red
+                          : Colors.grey),
                 ),
-                Text("Нравится: ${likes.length}")
+                Text("Нравится: ${_likes.length}")
               ],
             ),
             Padding(
               padding: const EdgeInsets.only(left: 14, bottom: 12, right: 14),
               child: Text(
-                widget.title,
+                title,
               ),
             ),
             Padding(
               padding: const EdgeInsets.only(left: 14, top: 12),
-              child: likes.isNotEmpty
+              child: _likes.isNotEmpty
                   ? const Text(
                       "Нравится пользователям",
                       style: TextStyle(fontSize: 24),
@@ -90,10 +89,10 @@ class _DetailsPageState extends State<DetailsPage> {
             ),
             ListView.builder(
               shrinkWrap: true,
-              itemCount: likes.length,
+              itemCount: _likes.length,
               itemBuilder: (context, index) {
                 return ListTile(
-                  title: Text(likes[index]),
+                  title: Text(_likes[index]),
                 );
               },
             )
