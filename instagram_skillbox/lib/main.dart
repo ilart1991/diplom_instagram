@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
       routes: <String, WidgetBuilder>{
         '/login': (BuildContext context) =>
             const LoginPage(title: "FlutterGram"),
-        '/home': (BuildContext context) => const HomePage(),
+        '/home': (BuildContext context) => HomePage(),
         '/profile': (BuildContext context) => const ProfilePage(),
       },
     );

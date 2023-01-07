@@ -1,30 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:instagram_skillbox/domain/providers/add_photo_provider.dart';
+import 'package:instagram_skillbox/domain/providers/pages_provider.dart';
+import 'package:instagram_skillbox/domain/providers/title_provider.dart';
 import '/domain/firebase_func.dart';
 import '/presentation/pages/gallery_page.dart';
 
 import '/presentation/pages/profile_page.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class HomePage extends ConsumerWidget {
+  HomePage({super.key});
 
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
   List<BottomNavigationBarItem> bottomNavBarItems = [
     const BottomNavigationBarItem(icon: Icon(Icons.grid_on), label: "Галерея"),
     const BottomNavigationBarItem(icon: Icon(Icons.person), label: "Профиль"),
   ];
-  int bottomIndex = 0;
-  bool addIsActive = false;
-  String title = "Галерея";
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref) {
+    final currentPage = ref.watch(pagesProvider) as int;
+    final currentTitle = ref.watch(titleProvider) as String;
+    final addIsActive = ref.watch(addPhotoProvider) as bool;
+
     return Scaffold(
       appBar: AppBar(
-        title: Text(title),
+        title: Text(currentTitle),
         centerTitle: true,
         actions: [
           Visibility(
@@ -36,19 +36,20 @@ class _HomePageState extends State<HomePage> {
                   icon: const Icon(Icons.add)))
         ],
       ),
-      body: bottomIndex == 0 ? GalleryPage() : const ProfilePage(),
+      body: currentPage == 0 ? GalleryPage() : const ProfilePage(),
       bottomNavigationBar: BottomNavigationBar(
-          currentIndex: bottomIndex,
-          onTap: (value) => setState(() {
-                bottomIndex = value;
-                if (value == 0) {
-                  title = "Галерея";
-                  addIsActive = false;
-                } else {
-                  title = "Профиль";
-                  addIsActive = true;
-                }
-              }),
+          currentIndex: currentPage,
+          onTap: (value) {
+            if (value != 0) {
+              ref.read(pagesProvider.notifier).profilePage();
+              ref.read(titleProvider.notifier).profileTitle();
+              ref.read(addPhotoProvider.notifier).addIsActive();
+            } else {
+              ref.read(pagesProvider.notifier).galleryPage();
+              ref.read(titleProvider.notifier).galleryTitle();
+              ref.read(addPhotoProvider.notifier).addIsDisabled();
+            }
+          },
           items: bottomNavBarItems),
     );
   }
