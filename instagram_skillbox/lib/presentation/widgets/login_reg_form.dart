@@ -39,7 +39,13 @@ class LoginRegForm extends ConsumerWidget {
                   textColor: Colors.white,
                   color: Colors.blue,
                   onPressed: () {
-                    isRegistered ? login(context) : registration();
+                    if (isRegistered) {
+                      login(context);
+                      return;
+                    } else {
+                      registration();
+                    }
+
                     isRegistered
                         ? ref.read(registeredProvider.notifier).notReg()
                         : ref.read(registeredProvider.notifier).isReg();

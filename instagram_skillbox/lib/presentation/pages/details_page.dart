@@ -24,7 +24,7 @@ class DetailsPage extends ConsumerWidget {
   Widget build(BuildContext context, ref) {
     WidgetsBinding.instance.addPostFrameCallback(
         (_) => ref.read(listProvider.notifier).setData(likes));
-    final _likes = ref.watch(listProvider);
+    final likesArray = ref.watch(listProvider);
     return Scaffold(
         appBar: AppBar(
           title: const Text("Подробнее"),
@@ -49,7 +49,7 @@ class DetailsPage extends ConsumerWidget {
                   onPressed: () async {
                     debugPrint(docId);
                     final currentPhotoRef = db.collection("photos").doc(docId);
-                    if (!_likes.contains(userEmail)) {
+                    if (!likesArray.contains(userEmail)) {
                       await currentPhotoRef.update({
                         "likes": FieldValue.arrayUnion([userEmail]),
                       });
@@ -65,11 +65,11 @@ class DetailsPage extends ConsumerWidget {
                     }
                   },
                   icon: Icon(Icons.favorite,
-                      color: _likes.contains(userEmail)
+                      color: likesArray.contains(userEmail)
                           ? Colors.red
                           : Colors.grey),
                 ),
-                Text("Нравится: ${_likes.length}")
+                Text("Нравится: ${likesArray.length}")
               ],
             ),
             Padding(
@@ -80,7 +80,7 @@ class DetailsPage extends ConsumerWidget {
             ),
             Padding(
               padding: const EdgeInsets.only(left: 14, top: 12),
-              child: _likes.isNotEmpty
+              child: likesArray.isNotEmpty
                   ? const Text(
                       "Нравится пользователям",
                       style: TextStyle(fontSize: 24),
@@ -89,10 +89,10 @@ class DetailsPage extends ConsumerWidget {
             ),
             ListView.builder(
               shrinkWrap: true,
-              itemCount: _likes.length,
+              itemCount: likesArray.length,
               itemBuilder: (context, index) {
                 return ListTile(
-                  title: Text(_likes[index]),
+                  title: Text(likesArray[index]),
                 );
               },
             )

@@ -9,19 +9,14 @@ import 'package:flutter/material.dart';
 import '../pages/gallery_page.dart';
 import '../pages/login_page.dart';
 
-class ProfileTopSpace extends StatefulWidget {
-  const ProfileTopSpace({super.key});
+class ProfileTopSpace extends StatelessWidget {
+  ProfileTopSpace({super.key});
 
-  @override
-  State<ProfileTopSpace> createState() => _ProfileTopSpaceState();
-}
-
-class _ProfileTopSpaceState extends State<ProfileTopSpace> {
   final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance
       .collection('users')
       .where("email", isEqualTo: userEmail)
       .snapshots();
-  TextEditingController nameController = TextEditingController();
+  final TextEditingController nameController = TextEditingController();
   final storageRef = FirebaseStorage.instance.ref();
 
   @override
@@ -67,7 +62,6 @@ class _ProfileTopSpaceState extends State<ProfileTopSpace> {
                                 .update({
                               "avatar": url,
                             });
-                            setState(() {});
                           } catch (e) {
                             debugPrint(e.toString());
                           }

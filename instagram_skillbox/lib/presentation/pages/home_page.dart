@@ -11,7 +11,7 @@ import '/presentation/pages/profile_page.dart';
 class HomePage extends ConsumerWidget {
   HomePage({super.key});
 
-  List<BottomNavigationBarItem> bottomNavBarItems = [
+  final List<BottomNavigationBarItem> bottomNavBarItems = [
     const BottomNavigationBarItem(icon: Icon(Icons.grid_on), label: "Галерея"),
     const BottomNavigationBarItem(icon: Icon(Icons.person), label: "Профиль"),
   ];
