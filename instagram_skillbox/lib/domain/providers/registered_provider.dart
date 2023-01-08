@@ -1,11 +1,11 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final registeredProvider = StateNotifierProvider((ref) {
-  return Registered();
+  return RegisteredProvider();
 });
 
-class Registered extends StateNotifier<bool> {
-  Registered() : super(true);
+class RegisteredProvider extends StateNotifier<bool> {
+  RegisteredProvider() : super(true);
 
   void isReg() => state = true;
   void notReg() => state = false;
