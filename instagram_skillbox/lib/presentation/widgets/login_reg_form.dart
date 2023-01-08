@@ -24,20 +24,20 @@ class LoginRegForm extends ConsumerWidget {
             child: Column(
               children: [
                 TextField(
+                  key: const Key("e-mail"),
                   controller: loginController,
-                  decoration: const InputDecoration(
-                      hintText: "E-mail", labelText: "E-mail"),
+                  decoration: const InputDecoration(labelText: "E-mail"),
                 ),
                 TextField(
+                  key: const Key("password"),
                   obscureText: true,
                   enableSuggestions: false,
                   autocorrect: false,
                   controller: passwordController,
-                  decoration: InputDecoration(
-                      hintText: "password".i18n(),
-                      labelText: "password".i18n()),
+                  decoration: InputDecoration(labelText: "password".i18n()),
                 ),
                 MaterialButton(
+                  key: const Key("logReg"),
                   textColor: Colors.white,
                   color: Colors.blue,
                   onPressed: () {
